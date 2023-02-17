@@ -13,3 +13,17 @@ steps:
     SourceFolder: 'quickstarts/microsoft.web/webapp-linux-managed-mysql/'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Visual Studio Enterprise Subscription – MPN(07ad299f-a06e-4d75-a781-f05ad16d5a76)'
+    subscriptionId: '07ad299f-a06e-4d75-a781-f05ad16d5a76'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'Bicep-l0204-RG'
+    location: 'Southeast Asia'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
+    csmParametersFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.parameters.json'
+    overrideParameters: '-siteName $(siteName) -administratorLogin $(adminUser) -administratorLoginPassword $(ARM_PASS)'
+    deploymentMode: 'Incremental'
