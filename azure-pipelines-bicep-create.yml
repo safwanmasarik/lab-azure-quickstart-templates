@@ -11,6 +11,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+steps:
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'Visual Studio Enterprise Subscription – MPN(07ad299f-a06e-4d75-a781-f05ad16d5a76)'
